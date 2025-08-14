@@ -14,7 +14,7 @@ app.Run();
 // --- just creating sample types for testing purposes ---
 public class RedHatProductQuery
 {
-    public RedHatProduct GetProduct(ProductQueryInput input)
+    public RedHatProduct Product(ProductQueryInput input)
     {
         // return different products based on input parameters
         if (input?.Id == "RHEL-9-001")

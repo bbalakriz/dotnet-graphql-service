@@ -46,7 +46,7 @@ You can now pass parameters to the `product` query to get different product deta
 To get a different product by ID:
 ```graphql
 {
-  product(input: { id: "RHEL-9-001" }) {
+product(input: { id: "RHEL-9-001", version: "9.0" }) {
     id
     name
     version
