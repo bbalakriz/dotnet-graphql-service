@@ -1,0 +1,148 @@
+{
+  "mappings": {
+    "character_to_person": {
+      "targetType": "Person",
+      "fields": {
+        "id": {
+          "sourceField": "id",
+          "targetField": "Id",
+          "dataType": "int",
+          "isRequired": true
+        },
+        "name": {
+          "sourceField": "name",
+          "targetField": "FullName",
+          "dataType": "string",
+          "isRequired": true,
+          "validationRule": "not_empty"
+        },
+        "status": {
+          "sourceField": "status",
+          "targetField": "LifeStatus",
+          "dataType": "LifeStatus",
+          "transformationRule": "status_to_lifestatus",
+          "defaultValue": "Unknown"
+        },
+        "species": {
+          "sourceField": "species",
+          "targetField": "Race",
+          "dataType": "string",
+          "defaultValue": "Unknown"
+        },
+        "type": {
+          "sourceField": "type",
+          "targetField": "PersonalityType",
+          "dataType": "string",
+          "transformationRule": "default_if_empty",
+          "defaultValue": "Standard",
+          "isRequired": false
+        },
+        "gender": {
+          "sourceField": "gender",
+          "targetField": "Gender",
+          "dataType": "Gender",
+          "transformationRule": "gender_mapping",
+          "defaultValue": "Unknown"
+        },
+        "image": {
+          "sourceField": "image",
+          "targetField": "ProfileImageUrl",
+          "dataType": "string",
+          "defaultValue": ""
+        },
+        "created": {
+          "sourceField": "created",
+          "targetField": "FirstAppearance",
+          "dataType": "DateTime"
+        }
+      },
+      "computedFields": [
+        {
+          "fieldName": "IsMainCharacter",
+          "computationRule": "is_main_character",
+          "dataType": "bool",
+          "dependentFields": ["name"]
+        }
+      ]
+    },
+    "location_to_world": {
+      "targetType": "World",
+      "fields": {
+        "id": {
+          "sourceField": "id",
+          "targetField": "Id",
+          "dataType": "int"
+        },
+        "name": {
+          "sourceField": "name",
+          "targetField": "Title",
+          "dataType": "string"
+        },
+        "type": {
+          "sourceField": "type",
+          "targetField": "Classification",
+          "dataType": "string",
+          "defaultValue": "Unknown"
+        },
+        "dimension": {
+          "sourceField": "dimension",
+          "targetField": "Reality",
+          "dataType": "string",
+          "defaultValue": "Unknown"
+        },
+        "created": {
+          "sourceField": "created",
+          "targetField": "Created",
+          "dataType": "DateTime"
+        },
+        "residents": {
+          "sourceField": "residents",
+          "targetField": "InhabitantCount",
+          "dataType": "int",
+          "transformationRule": "array_count",
+          "defaultValue": 0
+        }
+      },
+      "computedFields": []
+    },
+    "episode_to_storyarc": {
+      "targetType": "StoryArc",
+      "fields": {
+        "id": {
+          "sourceField": "id",
+          "targetField": "Id",
+          "dataType": "int"
+        },
+        "name": {
+          "sourceField": "name",
+          "targetField": "Title",
+          "dataType": "string"
+        },
+        "air_date": {
+          "sourceField": "air_date",
+          "targetField": "ReleaseDate",
+          "dataType": "DateTime"
+        },
+        "episode": {
+          "sourceField": "episode",
+          "targetField": "Season",
+          "dataType": "string",
+          "transformationRule": "extract_season"
+        },
+        "episode_code": {
+          "sourceField": "episode",
+          "targetField": "EpisodeCode",
+          "dataType": "string"
+        },
+        "characters": {
+          "sourceField": "characters",
+          "targetField": "CharacterCount",
+          "dataType": "int",
+          "transformationRule": "array_count",
+          "defaultValue": 0
+        }
+      },
+      "computedFields": []
+    }
+  }
+}
